@@ -7,6 +7,7 @@ var browserify = require('browserify');
 var path = require('path');
 var xtend = require('xtend');
 var through = require('through2');
+var factor = require('factor-bundle');
 
 module.exports = function (opts) {
     if (!opts) {
@@ -55,7 +56,7 @@ module.exports = function (opts) {
         var ess = es.merge.apply(null, ss.concat(s));
         outStream.queue(ess);
         outStream.done();
-        b.plugin('factor-bundle', xtend(opts, b._options, { outputs: ss }));
+        b.plugin(factor, xtend(opts, b._options, { outputs: ss }));
         b.reset(opts);
         if (typeof opts.alterPipeline === 'function') {
             opts.alterPipeline(b.pipeline, b, true);
