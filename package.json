@@ -1,0 +1,37 @@
+{
+  "name": "gulp-factor-bundle",
+  "version": "0.0.0",
+  "description": "a gulp plugin help you use factor-bundle",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undoZen/gulp-factor-bundle.git"
+  },
+  "keywords": [
+    "factor-bundle",
+    "gulpfriendly",
+    "browserify"
+  ],
+  "author": "undoZen <opensource@undozen.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/undoZen/gulp-factor-bundle/issues"
+  },
+  "homepage": "https://github.com/undoZen/gulp-factor-bundle",
+  "dependencies": {
+    "browserify": "^8.1.0",
+    "event-stream": "^3.2.1",
+    "factor-bundle": "^2.3.3",
+    "stream-combiner": "^0.2.1",
+    "streamqueue": "^0.1.1",
+    "through2": "^0.6.3",
+    "vinyl-source-stream2": "^0.1.1",
+    "xtend": "^4.0.0"
+  }
+}
