@@ -1,6 +1,6 @@
 {
   "name": "gulp-factor-bundle",
-  "version": "0.0.0",
+  "version": "0.1.0-pre",
   "description": "a gulp plugin help you use factor-bundle",
   "files": [
     "index.js"
