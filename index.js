@@ -1,7 +1,6 @@
 'use strict';
 var es = require('event-stream');
 var source = require('vinyl-source-stream2');
-var StreamQueue = require('streamqueue');
 var StreamCombiner = require('stream-combiner');
 var browserify = require('browserify');
 var path = require('path');
@@ -27,9 +26,8 @@ module.exports = function (opts) {
     //b.reset(opts);
 
     var vfiles = [];
-    var outStream = new StreamQueue({
-        objectMode: true
-    });
+    var outStream = es.through();
+    outStream.pause();
     var inStream = through.obj(function write(vfile, enc, next) {
         vfiles.push(vfile);
         next(null);
@@ -54,8 +52,8 @@ module.exports = function (opts) {
             cwd: cwd
         });
         var ess = es.merge.apply(null, ss.concat(s));
-        outStream.queue(ess);
-        outStream.done();
+        ess.pipe(outStream);
+        outStream.resume();
         b.plugin(factor, xtend(opts, b._options, { outputs: ss }));
         b.reset(opts);
         if (typeof opts.alterPipeline === 'function') {

@@ -16,6 +16,7 @@
   "keywords": [
     "factor-bundle",
     "gulpfriendly",
+    "gulpplugin",
     "browserify"
   ],
   "author": "undoZen <opensource@undozen.com>",
@@ -29,7 +30,6 @@
     "event-stream": "^3.2.1",
     "factor-bundle": "^2.3.3",
     "stream-combiner": "^0.2.1",
-    "streamqueue": "^0.1.1",
     "through2": "^0.6.3",
     "vinyl-source-stream2": "^0.1.1",
     "xtend": "^4.0.0"
