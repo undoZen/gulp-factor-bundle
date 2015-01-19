@@ -45,27 +45,50 @@ module.exports = function (opts) {
             });
             return s;
         });
+        var rfiles = vfiles.map(function (vfile) {
+            return vfile.path;
+        });
         var s = source({
             base: opts.base,
-            path: opts.commonJsPath[0] === '/' ? opts.commonJsPath : path.join(
-                opts.base, opts.commonJsPath),
+            path: opts.commonJsPath[0] === '/' ? opts.commonJsPath : path
+                .join(opts.base, opts.commonJsPath),
             cwd: cwd
         });
         var ess = es.merge.apply(null, ss.concat(s));
         ess.pipe(outStream);
         outStream.resume();
-        b.plugin(factor, xtend(opts, b._options, { outputs: ss }));
-        b.reset(opts);
-        if (typeof opts.alterPipeline === 'function') {
-            opts.alterPipeline(b.pipeline, b, true);
-            b.on('factor.pipeline', function (file, pipeline) {
-                opts.alterPipeline(pipeline, b, false);
-            });
-        }
-        b.add(vfiles.map(function (vfile) {
-            return vfile.path;
+        b.plugin(factor, xtend(opts, b._options, {
+            e: rfiles,
+            o: ss
         }));
-        b.bundle().pipe(s);
+
+        function resetEntry(pipeline) {
+            pipeline.get('pack')
+                .unshift(through.obj(function (row, enc, next) {
+                    if (rfiles.indexOf(row.file) > -1) {
+                        row.entry = true;
+                    }
+                    this.push(row);
+                    next();
+                }));
+        }
+        b.on('reset', function () {
+            if (typeof opts.alterPipeline === 'function') {
+                opts.alterPipeline(b.pipeline, b, true);
+                b.on('factor.pipeline', function (file, pipeline) {
+                    opts.alterPipeline(pipeline, b, false);
+                    resetEntry(pipeline);
+                });
+            } else {
+                b.on('factor.pipeline', function (file, pipeline) {
+                    resetEntry(pipeline);
+                });
+            }
+        });
+        b.reset(opts);
+        b.require(rfiles);
+        b.bundle()
+            .pipe(s);
         ess.on('error', function (err) {
             console.error(err);
             console.error(err.stack);
