@@ -85,6 +85,7 @@ module.exports = function (opts) {
                 });
             }
         });
+        b.removeAllListeners('bundle');
         b.reset(opts);
         b.require(rfiles);
         b.bundle()
