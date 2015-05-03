@@ -31,9 +31,9 @@
   "dependencies": {
     "browserify": "*",
     "event-stream": "^3.2.1",
-    "factor-bundle": "^2.3.3",
     "stream-combiner": "^0.2.1",
     "through2": "^0.6.3",
+    "uz-factor-bundle": "^3.0.0",
     "vinyl-source-stream2": "^0.1.1",
     "xtend": "^4.0.0"
   }

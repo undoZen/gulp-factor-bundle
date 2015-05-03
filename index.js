@@ -6,7 +6,7 @@ var browserify = require('browserify');
 var path = require('path');
 var xtend = require('xtend');
 var through = require('through2');
-var factor = require('factor-bundle');
+var factor = require('uz-factor-bundle');
 
 module.exports = function (opts) {
     if (!opts) {
