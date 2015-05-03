@@ -25,8 +25,11 @@
     "url": "https://github.com/undoZen/gulp-factor-bundle/issues"
   },
   "homepage": "https://github.com/undoZen/gulp-factor-bundle",
+  "peerDependencies": {
+    "browserify": "*"
+  },
   "dependencies": {
-    "browserify": "^8.1.0",
+    "browserify": "*",
     "event-stream": "^3.2.1",
     "factor-bundle": "^2.3.3",
     "stream-combiner": "^0.2.1",
